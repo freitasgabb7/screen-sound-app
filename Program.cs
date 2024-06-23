@@ -82,10 +82,10 @@ void MostrarBandas()
 void ExibirTituloDaOpt(string titulo)
 {
     int qtdLetras = titulo.Length;
-    string hifens = string.Empty.PadLeft(qtdLetras, '-');
-    Console.WriteLine(hifens);
+    string iguais = string.Empty.PadLeft(qtdLetras, '=');
+    Console.WriteLine(iguais);
     Console.WriteLine(titulo);
-    Console.WriteLine(hifens + "\n");
+    Console.WriteLine(iguais + "\n");
 }
 
 ExibirOptMenu();
