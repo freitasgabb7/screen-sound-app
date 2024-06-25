@@ -1,6 +1,10 @@
 ﻿// Screen Sound app
 string msgBoasVindas = "Seja bem-vindo ao...";
-List<string> bandas = new List<string> { "Sleep Token", "Bad Omens", "Bring Me The Horizon" };
+
+Dictionary<string, List<int>> bandasReg = new Dictionary<string, List<int>>();
+bandasReg.Add("Sleep Token", new List<int> { 10, 8 });
+bandasReg.Add("Bad Omens", new List<int> { 7, 8, 10 });
+bandasReg.Add("Bring Me The Horizon", new List<int>());
 
 void ExibirLogo()
 {
@@ -56,7 +60,7 @@ void RegistrarBandas()
     ExibirTituloDaOpt("REGISTRO DE BANDAS");
     Console.Write("Digite o nome da banda que deseja registrar: ");
     string nomeDaBanda = Console.ReadLine()!;
-    bandas.Add(nomeDaBanda);
+    bandasReg.Add(nomeDaBanda, new List<int>());
     Console.Write($"\nA banda {nomeDaBanda} foi registrada com sucesso!");
     Thread.Sleep(1500);
     Console.Clear();
@@ -68,7 +72,7 @@ void MostrarBandas()
     Console.Clear();
     ExibirTituloDaOpt("BANDAS REGISTRADAS");
     int contador = 1;
-    foreach (string banda in bandas)
+    foreach (string banda in bandasReg.Keys)
     {
         Console.WriteLine($"{contador}. {banda}");
         contador++;
@@ -78,6 +82,13 @@ void MostrarBandas()
     Console.Clear();
     ExibirOptMenu();
 }
+
+//void AvaliarBanda();
+//{
+//    //banda a ser avaliada
+//    //verificar se banda existe
+//    //pegar nota e incluir na chave da banda 
+//} 
 
 void ExibirTituloDaOpt(string titulo)
 {
