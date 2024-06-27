@@ -1,10 +1,14 @@
 ﻿// Screen Sound app
 string msgBoasVindas = "Seja bem-vindo ao...";
 
-Dictionary<string, List<int>> bandasReg = new Dictionary<string, List<int>>();
-bandasReg.Add("Sleep Token", new List<int> { 10, 8 });
-bandasReg.Add("Bad Omens", new List<int> { 7, 8, 10 });
-bandasReg.Add("Bring Me The Horizon", new List<int>());
+Dictionary<string, List<int>> bandasReg = new Dictionary<string, List<int>>
+{
+    { "Sleep Token", new List <int> { 10, 8 } },
+    { "Bad Omens", new List <int>() }
+};
+//bandasReg.Add("Sleep Token", new List<int> { 10, 8 });
+//bandasReg.Add("Bad Omens", new List<int> { 7, 8, 10 });
+//bandasReg.Add("Bring Me The Horizon", new List<int>());
 
 void ExibirLogo()
 {
@@ -34,13 +38,13 @@ void ExibirOptMenu()
     switch (optEscolhidaNum)
     {
         case 1:
-            RegistrarBandas();
+            RegistrarBanda();
             break;
         case 2:
             MostrarBandas();
             break;
         case 3:
-            Console.WriteLine("\nVocê digitou a opção " + optEscolhida);
+            AvaliarBanda();
             break;
         case 4:
             Console.WriteLine("\nVocê digitou a opção " + optEscolhida);
@@ -54,7 +58,7 @@ void ExibirOptMenu()
     }
 }
 
-void RegistrarBandas()
+void RegistrarBanda()
 {
     Console.Clear();
     ExibirTituloDaOpt("REGISTRO DE BANDAS");
@@ -77,18 +81,40 @@ void MostrarBandas()
         Console.WriteLine($"{contador}. {banda}");
         contador++;
     }
-    Console.WriteLine("\nDigite qualquer tecla para voltar ao menu principal.");
+    Console.Write("\nDigite qualquer tecla para voltar ao menu principal: ");
     Console.ReadKey();
     Console.Clear();
     ExibirOptMenu();
 }
 
-//void AvaliarBanda();
-//{
-//    //banda a ser avaliada
-//    //verificar se banda existe
-//    //pegar nota e incluir na chave da banda 
-//} 
+void AvaliarBanda()
+{
+    Console.Clear();
+    ExibirTituloDaOpt("AVALIAR BANDA");
+    Console.Write("Digite o nome da banda que deseja avaliar: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    if (bandasReg.ContainsKey(nomeDaBanda))
+    {
+        Console.Write($"\nDe 1 a 10, avalie a banda {nomeDaBanda}: ");
+        int nota = int.Parse(Console.ReadLine()!);
+        bandasReg[nomeDaBanda].Add(nota); // colchete indexa o dicionario usando a chave e acessa os valores (lista int)
+        Console.Write($"\nA nota {nota} para a banda {nomeDaBanda} foi registrada com sucesso.");
+        //foreach (int notaAux in bandasReg[nomeDaBanda]) //imprime todas notas apos registrar a nota
+        //{
+        //    Console.WriteLine(notaAux);
+        //}
+        Thread.Sleep(3000);
+        Console.Clear();
+        ExibirOptMenu();
+    } else
+    {
+        Console.WriteLine($"\nA banda {nomeDaBanda} não foi encontrada!");
+        Console.Write("\nDigite qualquer tecla para voltar ao menu principal: ");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOptMenu();
+    }
+} 
 
 void ExibirTituloDaOpt(string titulo)
 {
