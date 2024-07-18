@@ -6,8 +6,8 @@ Dictionary<string, List<int>> bandasReg = new Dictionary<string, List<int>>
     { "Sleep Token", new List <int> { 10, 8 } },
     { "Bad Omens", new List <int>() }
 };
-//bandasReg.Add("Sleep Token", new List<int> { 10, 8 });
-//bandasReg.Add("Bad Omens", new List<int> { 7, 8, 10 });
+//bandasReg.Add("Sleep Token", new List<int> { 10, 8 }); //Bandas podem ser adicionadas previamente dessa maneira
+//bandasReg.Add("Bad Omens", new List<int> { 7, 8, 10 });  
 //bandasReg.Add("Bring Me The Horizon", new List<int>());
 
 void ExibirLogo()
@@ -47,7 +47,7 @@ void ExibirOptMenu()
             AvaliarBanda();
             break;
         case 4:
-            Console.WriteLine("\nVocê digitou a opção " + optEscolhida);
+            MediaBanda();
             break;
         case 0:
             Console.WriteLine("\nTchau tchau :)");
@@ -99,7 +99,7 @@ void AvaliarBanda()
         int nota = int.Parse(Console.ReadLine()!);
         bandasReg[nomeDaBanda].Add(nota); // colchete indexa o dicionario usando a chave e acessa os valores (lista int)
         Console.Write($"\nA nota {nota} para a banda {nomeDaBanda} foi registrada com sucesso.");
-        //foreach (int notaAux in bandasReg[nomeDaBanda]) //imprime todas notas apos registrar a nota
+        //foreach (int notaAux in bandasReg[nomeDaBanda]) //imprime todas notas da banda (chave) apos registrar a nota
         //{
         //    Console.WriteLine(notaAux);
         //}
@@ -114,9 +114,33 @@ void AvaliarBanda()
         Console.Clear();
         ExibirOptMenu();
     }
-} 
+}
 
-void ExibirTituloDaOpt(string titulo)
+void MediaBanda()
+{
+    Console.Clear();
+    ExibirTituloDaOpt("MÉDIA DA BANDA");
+    Console.Write("Digite o nome da banda que deseja saber a média de notas: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    if (bandasReg.ContainsKey(nomeDaBanda))
+    {
+        double media = bandasReg[nomeDaBanda].Average(); //pode ser feito com List<int> media porém sem o .Average() //Vide linha 128
+        Console.WriteLine($"\nA nota média de {nomeDaBanda} entre {bandasReg[nomeDaBanda].Count} avaliações é: {media:F2} "); //F2 para formatar a média com 2 casas decimais // O .Average() ficaria aqui após o media e substituiria o :F2
+        Thread.Sleep(4000);
+        Console.Clear();
+        ExibirOptMenu();
+    }
+    else
+    {
+        Console.WriteLine($"\nA banda {nomeDaBanda} não foi encontrada!");
+        Console.Write("\nDigite qualquer tecla para voltar ao menu principal: ");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOptMenu();
+    }
+}
+
+    void ExibirTituloDaOpt(string titulo)
 {
     int qtdLetras = titulo.Length;
     string iguais = string.Empty.PadLeft(qtdLetras, '=');
